@@ -1,4 +1,4 @@
-#Spring Boot Applications
+## Spring Boot Applications
 
 This is a sample application that helps create a simple RESTful software service that will allow end user to query the product catalog in the provided currency
 

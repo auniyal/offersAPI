@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>OffersUtil.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Offers API</a> &gt; <a href="index.source.html" class="el_package">com.worldpay.techchallenge.offersapi.util</a> &gt; <span class="el_source">OffersUtil.java</span></div><h1>OffersUtil.java</h1><pre class="source lang-java linenums">package com.worldpay.techchallenge.offersapi.util;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.worldpay.techchallenge.offersapi.model.Offer;
+import com.worldpay.techchallenge.offersapi.model.Product;
+
+
+/**
+ * The Class OffersUtil.
+ */
+public class OffersUtil {
+<span class="nc" id="L16">	private OffersUtil(){}</span>
+	
+	/** The Constant PRODUCT_DESCRIPTION. */
+	public static final String PRODUCT_DESCRIPTION = &quot;Great news, we have applied %s%% discount to %s. Hurry offer ends %s&quot;;
+
+	/**
+	 * Apply discount.
+	 *
+	 * @param dis the dis
+	 * @param markedprice the markedprice
+	 * @return the double
+	 */
+	public static double applyDiscount(double dis, double markedprice) {
+		double amount;
+		double  s;
+<span class="fc" id="L31">		s = 100 - dis;</span>
+<span class="fc" id="L32">		amount = (s * markedprice) / 100;</span>
+<span class="fc" id="L33">		return amount;</span>
+
+	}
+	
+	/**
+	 * Apply promotion.
+	 *
+	 * @param currency the currency
+	 * @param orig the orig
+	 * @param offer the offer
+	 * @return the list
+	 */
+	public static  List&lt;Product&gt; applyPromotion(final String currency, List&lt;Product&gt; orig, Offer offer) {
+<span class="fc" id="L46">		return  orig.stream().filter(Product::getPromotion)</span>
+<span class="fc" id="L47">				.map(p -&gt; new Product(p.getId(),</span>
+<span class="fc" id="L48">						String.format(OffersUtil.PRODUCT_DESCRIPTION,</span>
+<span class="fc" id="L49">								offer.getPercentdiscount(), p.getDescription(), offer.getOfferEnd()),</span>
+<span class="fc" id="L50">						p.getCategory(),</span>
+<span class="fc" id="L51">						CurrencyHelper.convert(OffersUtil.applyDiscount(offer.getPercentdiscount(), p.getPrice()),</span>
+<span class="fc" id="L52">								CurrencyHelper.DEFAULT_CURRENCY, currency).getNumber().doubleValue(),p.getPromotion(),currency))</span>
+<span class="fc" id="L53">				.collect(Collectors.toList());</span>
+		
+	}
+
+	/**
+	 * Gets the best offers.
+	 *
+	 * @param offers the offers
+	 * @return the best offers
+	 */
+	public static Optional&lt;Offer&gt; getBestOffers(List&lt;Offer&gt; offers) {
+<span class="fc" id="L64">		return  offers.stream().filter(Offer::getCurrentlyactive)</span>
+<span class="fc" id="L65">				.collect(Collectors.maxBy(Comparator.comparing(Offer::getPercentdiscount)));</span>
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

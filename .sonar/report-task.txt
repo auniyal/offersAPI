@@ -1,0 +1,6 @@
+projectKey=WP:offers-api
+serverUrl=http://localhost:9000
+serverVersion=6.5.0.27846
+dashboardUrl=http://localhost:9000/dashboard/index/WP:offers-api
+ceTaskId=AV8IQU2-y7roGxCaosdr
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV8IQU2-y7roGxCaosdr

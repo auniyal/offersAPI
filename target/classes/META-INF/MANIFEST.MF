@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Offers API
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: auniyal
+Implementation-Vendor-Id: com.worldpay.techchallenge
+Build-Jdk: 1.8.0_31
+Implementation-URL: http://projects.spring.io/spring-boot/offers-api/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
